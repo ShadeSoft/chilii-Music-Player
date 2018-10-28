@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Home | {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style rel="stylesheet">
+        body { background: #dedede; }
+        figure {
+            background: #efefef;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .75);
+            height: 80px;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-4">
+        {% for folder in folders %}
+            <div class="col-2">
+                <figure class="d-flex justify-content-center">
+                    <a class="d-flex align-self-center" href="{{ path('list', { path: (path ? path ~ '|') ~ folder.filename }) }}">{{ folder.filename }}</a>
+                </figure>
+            </div>
+        {% endfor %}
+
+        {% for song in songs %}
+            <div class="col-2">
+                <figure class="d-flex justify-content-center">
+                    <span class="d-flex align-self-center">
+                        {{ song.filename|replace({ ('.' ~ song.extension): '' }) }}
+                    </span>
+                     <audio controls>
+                        <source src="{{ song.pathname }}" type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </figure>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

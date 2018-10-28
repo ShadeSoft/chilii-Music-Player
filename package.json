@@ -1,0 +1,18 @@
+{
+  "name": "chilii-music-player",
+  "version": "1.0.0",
+  "description": "chilii Music Player",
+  "main": "public/index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-vendor-dir": "ln -s ../node_modules ./public/vendor"
+  },
+  "author": "ShadeSoft",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.4.2",
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.4"
+  }
+}
