@@ -29,12 +29,8 @@ class PageController extends Controller {
                 $xPath = explode(';', $path);
                 return $xPath[count($xPath) - 1];
             })($path),
-            'folders'   => iterator_to_array(
-                $this->getDirectories($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''))
-            ),
-            'songs'     => iterator_to_array(
-                $this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), '/\.(mp3|flac)$/')
-            )
+            'folders'   => array_unique($this->getDirectories($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''))),
+            'songs'     => array_unique($this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), '/\.(mp3|flac)$/'))
         ]);
     }
 
@@ -50,18 +46,20 @@ class PageController extends Controller {
 
     private function getDirectories($path) {
         $this->finder->depth('== 0');
+        $directories = [];
         foreach($this->finder->directories()->in($path) as $directory) {
-            //dump($directory);
-            yield $directory;
+            $directories[] = $directory;
         }
+        return $directories;
     }
 
     private function getFiles($path, $filter = '*') {
         $this->finder->depth('== 0');
         $this->finder->sortByName(true);
+        $files = [];
         foreach($this->finder->files()->in($path)->name($filter) as $file) {
-            //dump($file);
-            yield $file;
+            $files[] = $file;
         }
+        return $files;
     }
 }

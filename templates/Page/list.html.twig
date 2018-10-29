@@ -2,42 +2,17 @@
 
 {% block title %}{{ title ?: 'Home' }} | {{ parent() }}{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style rel="stylesheet">
-        body {
-            background: #dedede;
-            color: #454545;
-        }
-        figure {
-            background: #efefef;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .75);
-            height: 100px;
-            padding: 5px;
-        }
-        figure aside {
-            position: absolute;
-            bottom: 16%;
-            left: 10%;
-        }
-        figure button {
-            background: #454545;
-            border: none;
-            border-radius: 50%;
-            color: #efefef;
-            cursor: pointer;
-            position: absolute;
-            bottom: 16%;
-            right: 8%;
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-{% endblock %}
-
 {% block content %}
     <div class="row">
+        {% if path %}
+            <div class="col-2">
+                <figure class="d-flex justify-content-center">
+                    {% set xPath = path|split(';') %}
+                    <a class="d-flex align-self-center" href="{{ path('list', { path: xPath|slice(0, xPath|length - 1)|join(';') }) }}"><i class="fas fa-arrow-up"></i></a>
+                </figure>
+            </div>
+        {% endif %}
+
         {% for folder in folders %}
             <div class="col-2">
                 <figure class="d-flex justify-content-center">
@@ -62,36 +37,4 @@
             </div>
         {% endfor %}
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(document).ready(function() {
-            $('#player').on('play pause', function() {
-                var player = $(this)[0];
-                var icon = '\u25B6';
-                if(player.paused && document.title.charAt(0) === icon) {
-                    document.title = document.title.slice(2);
-                } else if(document.title.charAt(0) !== icon) {
-                    document.title = icon + ' ' + document.title;
-                }
-            });
-
-            $('.play-song').click(function() {
-                var sender = $(this);
-                $('.play-song').find('i').each(function() {
-                    if($(this) !== sender) {
-                        $(this).removeClass('fa-pause').addClass('fa-play');
-                    }
-                });
-                $('#player').trigger('pause');
-                $('#player')
-                    .attr('type', $(this).data('type'))
-                    .attr('src', $(this).data('src'));
-                $('#player').trigger('play');
-                sender.find('i').toggleClass('fa-play').toggleClass('fa-pause');
-            });
-        });
-    </script>
 {% endblock %}

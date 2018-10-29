@@ -5,26 +5,14 @@
 {% block stylesheets %}
     <link href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <style rel="stylesheet">
-        body > header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-        body > footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
-    </style>
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/popper.js/dist/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 {% endblock %}
 
 {% block body %}
