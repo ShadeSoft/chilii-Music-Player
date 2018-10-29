@@ -6,5 +6,6 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
+/config/settings.yaml
 /node_modules/
 /public/vendor/

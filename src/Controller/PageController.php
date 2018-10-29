@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller {
     private
@@ -13,8 +16,7 @@ class PageController extends Controller {
 
     public function __construct() {
         $this->finder = new Finder;
-        $this->folder = '/home/subby/Music';
-        exec('ln -s ' . $this->folder . ' ' . __DIR__ . '/../../public/music');
+        $this->folder = Yaml::parseFile(__DIR__ . '/../../config/settings.yaml')['music_library'];
     }
 
     /**
@@ -23,13 +25,27 @@ class PageController extends Controller {
     public function list($path = '') {
         return $this->render('Page/list.html.twig', [
             'path'      => $path,
+            'title'     => (function($path) {
+                $xPath = explode(';', $path);
+                return $xPath[count($xPath) - 1];
+            })($path),
             'folders'   => iterator_to_array(
-                $this->getDirectories($this->folder . ($path ? ('/' . str_replace('|', '/', $path)) : ''))
+                $this->getDirectories($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''))
             ),
             'songs'     => iterator_to_array(
-                $this->getFiles($this->folder . ($path ? ('/' . str_replace('|', '/', $path)) : ''), '/\.(mp3|flac)$/')
+                $this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), '/\.(mp3|flac)$/')
             )
         ]);
+    }
+
+    /**
+     * @Route("/stream-song/{path}", name="stream_song")
+     */
+    public function streamSong($path) {
+        $response = new BinaryFileResponse($this->folder . '/' . str_replace(';', '/', $path));
+        $response->headers->set('Content-Type', 'audio');
+        BinaryFileResponse::trustXSendfileTypeHeader();
+        return $response;
     }
 
     private function getDirectories($path) {

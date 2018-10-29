@@ -2,10 +2,14 @@
   "name": "chilii-music-player",
   "version": "1.0.0",
   "description": "chilii Music Player",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShadeSoft/chilii-Music-Player"
+  },
   "main": "public/index.php",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "create-vendor-dir": "ln -s ../node_modules ./public/vendor"
+    "create-vendor-dir": "ln -s ../node_modules ./public/vendor",
+    "create-vendor-dir-win": "mklink /d .\\public\\vendor ..\\node_modules"
   },
   "author": "ShadeSoft",
   "license": "MIT",

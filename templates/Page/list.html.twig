@@ -1,27 +1,47 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Home | {{ parent() }}{% endblock %}
+{% block title %}{{ title ?: 'Home' }} | {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <style rel="stylesheet">
-        body { background: #dedede; }
+        body {
+            background: #dedede;
+            color: #454545;
+        }
         figure {
             background: #efefef;
             border-radius: 2px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, .75);
-            height: 80px;
+            height: 100px;
             padding: 5px;
+        }
+        figure aside {
+            position: absolute;
+            bottom: 16%;
+            left: 10%;
+        }
+        figure button {
+            background: #454545;
+            border: none;
+            border-radius: 50%;
+            color: #efefef;
+            cursor: pointer;
+            position: absolute;
+            bottom: 16%;
+            right: 8%;
+            width: 30px;
+            height: 30px;
         }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="row mt-4">
+    <div class="row">
         {% for folder in folders %}
             <div class="col-2">
                 <figure class="d-flex justify-content-center">
-                    <a class="d-flex align-self-center" href="{{ path('list', { path: (path ? path ~ '|') ~ folder.filename }) }}">{{ folder.filename }}</a>
+                    <a class="d-flex align-self-center" href="{{ path('list', { path: (path ? path ~ ';') ~ folder.filename }) }}">{{ folder.filename }}</a>
                 </figure>
             </div>
         {% endfor %}
@@ -29,15 +49,49 @@
         {% for song in songs %}
             <div class="col-2">
                 <figure class="d-flex justify-content-center">
-                    <span class="d-flex align-self-center">
+                    <header class="d-flex align-self-center">
                         {{ song.filename|replace({ ('.' ~ song.extension): '' }) }}
-                    </span>
-                     <audio controls>
-                        <source src="{{ song.pathname }}" type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}">
-                        Your browser does not support the audio element.
-                    </audio>
+                    </header>
+                    <aside>
+                        <small>{{ song.extension }}</small>
+                    </aside>
+                    <button class="play-song" data-src="{{ path('stream_song', { path: (path ? path ~ ';') ~ song.filename }) }}" data-type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}">
+                        <i class="fas fa-play"></i>
+                    </button>
                 </figure>
             </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#player').on('play pause', function() {
+                var player = $(this)[0];
+                var icon = '\u25B6';
+                if(player.paused && document.title.charAt(0) === icon) {
+                    document.title = document.title.slice(2);
+                } else if(document.title.charAt(0) !== icon) {
+                    document.title = icon + ' ' + document.title;
+                }
+            });
+
+            $('.play-song').click(function() {
+                var sender = $(this);
+                $('.play-song').find('i').each(function() {
+                    if($(this) !== sender) {
+                        $(this).removeClass('fa-pause').addClass('fa-play');
+                    }
+                });
+                $('#player').trigger('pause');
+                $('#player')
+                    .attr('type', $(this).data('type'))
+                    .attr('src', $(this).data('src'));
+                $('#player').trigger('play');
+                sender.find('i').toggleClass('fa-play').toggleClass('fa-pause');
+            });
+        });
+    </script>
 {% endblock %}
