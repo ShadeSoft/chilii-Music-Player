@@ -6,8 +6,9 @@
     "require": {
         "php": "^7.2",
         "ext-ctype": "*",
-        "ext-iconv": "*",
         "ext-fileinfo": "*",
+        "ext-iconv": "*",
+        "james-heinrich/getid3": "^1.9",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "*",

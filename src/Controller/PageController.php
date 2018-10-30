@@ -23,6 +23,12 @@ class PageController extends Controller {
      * @Route("/{path}", name="list")
      */
     public function list($path = '') {
+        /*foreach(array_unique($this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), '/\.(mp3|flac)$/')) as $song) {
+            $info = (new \getID3)->analyze($song);
+            \getid3_lib::CopyTagsToComments($info);
+            dump($info);
+        } exit;*/
+
         return $this->render('Page/list.html.twig', [
             'path'      => $path,
             'title'     => (function($path) {
@@ -38,8 +44,9 @@ class PageController extends Controller {
      * @Route("/stream-song/{path}", name="stream_song")
      */
     public function streamSong($path) {
-        $response = new BinaryFileResponse($this->folder . '/' . str_replace(';', '/', $path));
-        $response->headers->set('Content-Type', 'audio');
+        $realPath = $this->folder . '/' . str_replace(';', '/', $path);
+        $response = new BinaryFileResponse($realPath);
+        $response->headers->set('Content-Type', (new \getID3)->analyze($realPath)['mime_type']);
         BinaryFileResponse::trustXSendfileTypeHeader();
         return $response;
     }
