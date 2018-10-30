@@ -29,7 +29,7 @@
                         <small>{{ tags.track_number[0] }}</small>
                     </header>
                     <article class="d-flex align-self-center">
-                        {{ tags.title[0] }}
+                        {{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}
                     </article>
                     <aside class="position-absolute">
                         <small>{{ song.extension }}</small>
@@ -37,7 +37,7 @@
                     <button class="position-absolute play-song"
                         data-src="{{ path('stream_song', { path: (path ? path ~ ';') ~ song.filename }) }}"
                         data-type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}"
-                        data-title="{{ tags.title[0] }}"
+                        data-title="{{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}"
                         data-artist="{{ tags.artist[0] }}"
                         data-album="{{ tags.album[0] }}"
                         {#data-cover="{{ tags.picture[0].data }}"#}>
