@@ -12,11 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 class PageController extends Controller {
     private
         $finder,
-        $folder;
+        $folder,
+        $enabledFormats;
 
     public function __construct() {
         $this->finder = new Finder;
-        $this->folder = Yaml::parseFile(__DIR__ . '/../../config/settings.yaml')['music_library'];
+
+        $settings = Yaml::parseFile(__DIR__ . '/../../config/settings.yaml');
+        $this->folder = $settings['music_library'];
+        $this->enabledFormats = $settings['enabled_formats'];
     }
 
     /**
@@ -36,7 +40,7 @@ class PageController extends Controller {
                 return $xPath[count($xPath) - 1];
             })($path),
             'folders'   => array_unique($this->getDirectories($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''))),
-            'songs'     => array_unique($this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), '/\.(mp3|flac)$/'))
+            'songs'     => array_unique($this->getFiles($this->folder . ($path ? ('/' . str_replace(';', '/', $path)) : ''), $this->enabledFormats))
         ]);
     }
 
