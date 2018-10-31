@@ -12,7 +12,7 @@
     "create-vendor-dir-win": "mklink /d .\\public\\vendor ..\\node_modules"
   },
   "author": "ShadeSoft",
-  "license": "MIT",
+  "license": "(GPL-3.0 OR LGPL-3.0 OR MPL-2.0)",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.2",
     "bootstrap": "^4.1.3",

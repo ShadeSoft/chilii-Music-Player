@@ -1,0 +1,28 @@
+chilii Music Player Commercial License
+======================================
+
+chilii Music Player is licensed under the GPL v3.0, LGPL v3.0, MPL v2.0 and/or
+the "chilii Music Player Commercial License" (cMPCL).
+This document describes the cMPCL.
+
+------------------------------------------------------------------------------
+
+The license is non-exclusively granted to a single person or company, per
+payment of the license fee, for the lifetime of that person or company.
+The license is non-transferrable.
+
+The cMPCL grants the licensee the right to use chilii Music Player in
+commercial closed-source projects. Modifications may be made to
+chilii Music Player with no obligation to release the modified source code.
+chilii Music Player (or pieces thereof) may be included in any number of
+projects authored (in whole or in part) by the licensee.
+
+The licensee may use any version of chilii Music Player, past, present or
+future, as is most convenient. This license does not entitle the licensee to
+receive any technical support, updates of bugfixes, except as such are made
+publicly available to all chilii Music Player users.
+
+The licensee may not sub-license chilii Music Player itself, meaning that any
+commercially released product containing all or parts of chilii Music Player
+must have added functionality beyond what is available in chilii Music Player;
+chilii Music Player itself may not be re-licensed by the licensee.
