@@ -7,10 +7,7 @@
     "url": "https://github.com/ShadeSoft/chilii-Music-Player"
   },
   "main": "public/index.php",
-  "scripts": {
-    "create-vendor-dir": "ln -s ../node_modules ./public/vendor",
-    "create-vendor-dir-win": "mklink /d .\\public\\vendor ..\\node_modules"
-  },
+  "scripts": {},
   "author": "ShadeSoft",
   "license": "(GPL-3.0 OR LGPL-3.0 OR MPL-2.0)",
   "dependencies": {

@@ -58,6 +58,28 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "build": [
+            "composer install -o --no-dev --apcu-autoloader",
+            "npm i -f --only-prod --ignore-scripts --no-package-lock --no-audit",
+            "ln -s ../node_modules ./public/vendor"
+        ],
+        "build-windows": [
+            "composer install -o --no-dev --apcu-autoloader",
+            "npm i -f --only-prod --ignore-scripts --no-package-lock --no-audit",
+            "mklink /d .\\public\\vendor ..\\node_modules"
+        ],
+        "build-dev": [
+            "composer install",
+            "npm i",
+            "ln -s ../node_modules ./public/vendor",
+            "gulp"
+        ],
+        "build-dev-windows": [
+            "composer install",
+            "npm i",
+            "mklink /d .\\public\\vendor ..\\node_modules",
+            "gulp"
         ]
     },
     "conflict": {
