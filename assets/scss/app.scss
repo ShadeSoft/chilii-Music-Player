@@ -4,6 +4,7 @@
 body {
     background: #dedede;
     color: $gray;
+    z-index: 0;
 
     & > header,
     & > footer {
@@ -11,6 +12,7 @@ body {
         position: fixed;
         left: 0;
         width: 100%;
+        z-index: 1;
     }
     & > header {
         top: 0;

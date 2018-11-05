@@ -34,7 +34,7 @@
                     <aside class="position-absolute">
                         <small>{{ song.extension }}</small>
                     </aside>
-                    <button class="position-absolute play-song"
+                    <button id="play-song-{{ loop.index }}" rel="{{ loop.index }}" class="position-absolute play-song"
                         data-src="{{ path('stream_song', { path: (path ? path ~ ';') ~ song.filename }) }}"
                         data-type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}"
                         data-title="{{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}"
