@@ -62,23 +62,23 @@
         "build": [
             "composer install -o --no-dev --apcu-autoloader",
             "npm i -f --only-prod --ignore-scripts --no-package-lock --no-audit",
-            "ln -s ../node_modules ./public/vendor"
+            "ln -s ../../node_modules ./public/assets/vendor"
         ],
         "build-windows": [
             "composer install -o --no-dev --apcu-autoloader",
             "npm i -f --only-prod --ignore-scripts --no-package-lock --no-audit",
-            "mklink /d .\\public\\vendor ..\\node_modules"
+            "mklink /d .\\public\\assets\\vendor ..\\..\\node_modules"
         ],
         "build-dev": [
             "composer install",
             "npm i",
-            "ln -s ../node_modules ./public/vendor",
+            "ln -s ../../node_modules ./public/assets/vendor",
             "gulp"
         ],
         "build-dev-windows": [
             "composer install",
             "npm i",
-            "mklink /d .\\public\\vendor ..\\node_modules",
+            "mklink /d .\\public\\assets\\vendor ..\\..\\node_modules",
             "gulp"
         ]
     },

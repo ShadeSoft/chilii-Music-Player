@@ -9,4 +9,6 @@
 /.sass-cache/
 /config/settings.yaml
 /node_modules/
-/public/vendor/
+/public/assets/
+!public/assets/css/
+!public/assets/js/
