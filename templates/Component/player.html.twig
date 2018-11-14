@@ -2,18 +2,20 @@
     Your browser does not support the audio element.
 </audio>
 
-<figure id="player">
+<figure id="player" class="position-relative m-0">
     <div class="row half-gutters">
-        <div class="col-2">
-            <img alt="" class="img-fluid">
-        </div>
-        <div class="col-7 d-flex align-items-center">
-            <div>
-                <span class="title">-</span><br>
-                <span>
-                    <small class="artist">-</small> -
-                    <small class="album">-</small>
-                </span>
+        <div class="col-9 d-flex">
+            <div class="d-flex flex-grow-0">
+                <img src="https://via.placeholder.com/64?text=cover" alt="" class="img-fluid">
+            </div>
+            <div class="d-flex align-items-center flex-grow-1">
+                <div class="pl-2">
+                    <span class="title">-</span><br>
+                    <span>
+                        <small class="artist">-</small> &ndash;
+                        <small class="album">-</small>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="col-3 d-flex align-items-center justify-content-center">
@@ -24,5 +26,6 @@
     </div>
     <div class="progress">
         <div class="progress-bar"></div>
+        <small class="position-absolute progress-time"></small>
     </div>
 </figure>
