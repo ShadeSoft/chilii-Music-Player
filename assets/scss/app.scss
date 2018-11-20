@@ -2,7 +2,7 @@
 @import "mixins";
 
 body {
-    background: #dedede;
+    background: $darkWhite;
     color: $gray;
     z-index: 0;
 
@@ -48,8 +48,27 @@ body {
             right: .25em;
 
             i {
-                color: #007bff;
+                color: $blue;
                 font-style: normal;
+            }
+        }
+    }
+
+    .queue {
+        background: $white;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .75);
+        display: block;
+        max-height: 20em;
+        overflow-y: auto;
+        top: 100%;
+        right: 0;
+        width: 100%;
+
+        span {
+            display: block;
+
+            &.current {
+                color: $blue;
             }
         }
     }

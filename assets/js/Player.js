@@ -4,6 +4,8 @@ class Player {
         this.player = $(player);
         this.status = 'stopped';
         this.data = {};
+        this.queue = null;
+        this.originalTitle = document.title;
 
         let instance = this;
 
@@ -31,22 +33,42 @@ class Player {
         });
 
         this.player.find('.play-prev').click(function() {
-            instance.restart();
+            if(instance.audio[0].currentTime > 2) {
+                instance.restart();
+            } else {
+                instance.previous();
+            }
         });
 
         this.player.find('.play-next').click(function() {
             instance.next();
         });
+
+        this.player.find('.list-queue').click(function() {
+            instance.listQueue();
+        });
     }
 
-    play(refresh = false) {
+    play(refresh = false, queue = null) {
         this.audio.trigger('play');
         if(refresh) {
             this.player.find('.title').html(this.data.title);
             this.player.find('.artist').html(this.data.artist);
             this.player.find('.album').html(this.data.album);
-            this.originalTitle = document.title;
-            document.title = '\u25B6 ' + this.data.title + ' - ' + this.data.artist + ' | chilii Music Player';
+            document.title = this.data.title + ' - ' + this.data.artist + ' | chilii Music Player';
+
+            if(queue) {
+                this.queue = new Queue(queue);
+            }
+
+            if(this.queue) {
+                let container = this.player.find('.queue');
+                if(container.hasClass('open')) {
+                    container.slideUp('fast', function() {
+                        container.removeClass('open');
+                    });
+                }
+            }
         }
         this.player.find('.fa-play')
             .removeClass('fa-play')
@@ -75,15 +97,38 @@ class Player {
         return this;
     }
 
+    previous() {
+        if(this.previousHandler) {
+            this.previousHandler();
+        } else if(this.queue) {
+            let song = this.queue.previous();
+            this.setType(song.type)
+                .setSrc(song.src)
+                .title(song.title)
+                .artist(song.artist)
+                .album(song.album)
+                .play(true);
+        }
+    }
+
     next() {
         if(this.nextHandler) {
             this.nextHandler();
+        } else if(this.queue) {
+            let song = this.queue.next();
+            this.setType(song.type)
+                .setSrc(song.src)
+                .title(song.title)
+                .artist(song.artist)
+                .album(song.album)
+                .play(true);
         }
     }
 
     title(title = null) {
         if(title) {
             this.data.title = title;
+            return this;
         }
         return this.data.title;
     }
@@ -91,6 +136,7 @@ class Player {
     artist(artist = null) {
         if(artist) {
             this.data.artist = artist;
+            return this;
         }
         return this.data.artist;
     }
@@ -98,6 +144,7 @@ class Player {
     album(album = null) {
         if(album) {
             this.data.album = album;
+            return this;
         }
         return this.data.album;
     }
@@ -111,6 +158,34 @@ class Player {
     setSrc(src) {
         this.src = src;
         this.audio.attr('src', src);
+        return this;
+    }
+
+    listQueue() {
+        let container = this.player.find('.queue');
+        if(!container.hasClass('open')) {
+            let queueList = this.queue.list();
+            let currentIndex = this.queue.currentIndex();
+            container.html('');
+            for(let i = 0; i < queueList.length; i++) {
+                container.append(
+                    '<span' + (i === currentIndex ? ' class="current"': '') + '>'
+                        + queueList[i].title + ' - ' + queueList[i].artist + '</span>'
+                );
+            }
+            container.slideDown('fast', function() {
+                container.addClass('open');
+            });
+        } else {
+            container.slideUp('fast', function() {
+                container.removeClass('open');
+            });
+        }
+        return this;
+    }
+
+    setPreviousHandler(handler) {
+        this.previousHandler = handler;
         return this;
     }
 
