@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "206e82b092e0891f8024c343909b58a2",
+    "content-hash": "67ca491c2ce0375bfe405bb26beab6d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1050,6 +1050,49 @@
             "time": "2018-10-26T14:09:02+00:00"
         },
         {
+            "name": "shadesoft/twig-asset-version",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ShadeSoft/TwigAssetVersion.git",
+                "reference": "0410031d1f96e641b81b8032553aabbdbf026ed2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ShadeSoft/TwigAssetVersion/zipball/0410031d1f96e641b81b8032553aabbdbf026ed2",
+                "reference": "0410031d1f96e641b81b8032553aabbdbf026ed2",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "~1.0|~2.0"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "ShadeSoft\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Szabolcs Surányi",
+                    "email": "szabolcs.suranyi@shadesoft.hu",
+                    "homepage": "http://shadesoft.hu"
+                }
+            ],
+            "description": "Twig extension for versioning assets.",
+            "homepage": "https://github.com/ShadeSoft/TwigAssetVersion",
+            "keywords": [
+                "asset",
+                "twig",
+                "version"
+            ],
+            "time": "2018-08-17T10:40:42+00:00"
+        },
+        {
             "name": "symfony/apache-pack",
             "version": "v1.0.1",
             "source": {
@@ -1675,16 +1718,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.1.1",
+            "version": "v1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25"
+                "reference": "955774ecf07b10230bb5b44e150ba078b45f68fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9fb60f232af0764d58002e7872acb43a74506d25",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/955774ecf07b10230bb5b44e150ba078b45f68fa",
+                "reference": "955774ecf07b10230bb5b44e150ba078b45f68fa",
                 "shasum": ""
             },
             "require": {
@@ -1718,7 +1761,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2018-09-03T08:17:12+00:00"
+            "time": "2018-11-15T06:11:38+00:00"
         },
         {
             "name": "symfony/framework-bundle",

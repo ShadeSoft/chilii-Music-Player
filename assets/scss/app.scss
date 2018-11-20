@@ -44,8 +44,13 @@ body {
         height: 4%;
 
         .progress-time {
-            bottom: 0;
-            right: 0;
+            bottom: 2.5%;
+            right: .25em;
+
+            i {
+                color: #007bff;
+                font-style: normal;
+            }
         }
     }
 

@@ -59,6 +59,9 @@
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         }
     },
+    "shadesoft/twig-asset-version": {
+        "version": "v1.0"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

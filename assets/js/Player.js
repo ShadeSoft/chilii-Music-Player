@@ -15,7 +15,7 @@ class Player {
                     instance.player.find('.progress-bar')
                         .css('width', currentTime / duration * 100 + '%');
                     instance.player.find('.progress-time')
-                        .text(currentTime.timeFormat() + '/' + duration.timeFormat());
+                        .html('<i>' + currentTime.timeFormat() + '</i>/' + duration.timeFormat());
                 } else {
                     instance.next();
                 }

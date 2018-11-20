@@ -10,6 +10,7 @@
         "ext-iconv": "*",
         "james-heinrich/getid3": "^1.9",
         "sensio/framework-extra-bundle": "^5.2",
+        "shadesoft/twig-asset-version": "^1.0",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "*",
         "symfony/console": "*",
