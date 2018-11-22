@@ -12,7 +12,7 @@ gulp.task('jsClean', function(cb) {
     return del(['public/assets/js/app.js'], cb);
 });
 
-gulp.task('js', ['jsClean'], function(cb) {
+gulp.task('js', gulp.series('jsClean', function(cb) {
     pump([
         gulp.src(['assets/js/**/*.js', '!assets/js/**/_*.js']),
         babel({ presets: ['env'] }),
@@ -20,15 +20,15 @@ gulp.task('js', ['jsClean'], function(cb) {
         uglifyJs(),
         gulp.dest('public/assets/js')
     ], cb);
-});
+}));
 
 gulp.task('jsWatch', function() {
-    gulp.watch(['assets/js/**/*.js', '!assets/js/**/_*.js'], ['js']);
+    gulp.watch(['assets/js/**/*.js', '!assets/js/**/_*.js'], gulp.series('js'));
 });
 
 gulp.task('css', function(cb) {
     pump([
-        gulp.src('assets/scss/**/*.scss'),
+        gulp.src('assets/s(a|c)ss/**/*.s(a|c)ss'),
         sass().on('error', sass.logError),
         postcss([require('autoprefixer')]),
         minifyCss(),
@@ -37,9 +37,9 @@ gulp.task('css', function(cb) {
 });
 
 gulp.task('cssWatch', function() {
-    gulp.watch('assets/scss/**/*.scss', ['css']);
+    gulp.watch('assets/s(a|c)ss/**/*.s(a|c)ss', gulp.series('css'));
 });
 
-gulp.task('watch', ['jsWatch', 'cssWatch']);
+gulp.task('watch', gulp.parallel('jsWatch', 'cssWatch'));
 
-gulp.task('default', ['js', 'css']);
+gulp.task('default', gulp.parallel('js', 'css'));

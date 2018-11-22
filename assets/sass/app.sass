@@ -1,0 +1,95 @@
+@import "vars"
+@import "mixins"
+
+body
+    background: $darkWhite
+    color: $gray
+    z-index: 0
+
+    & > header,
+    & > footer
+        background: $white
+        position: fixed
+        left: 0
+        width: 100%
+        z-index: 1
+
+    & > header
+        top: 0
+        box-shadow: 0 0 8px rgba(0, 0, 0, .75)
+
+    & > footer
+        bottom: 0
+        box-shadow: 0 0 8px rgba(0, 0, 0, .75)
+
+.half-gutters
+    @include half-gutters
+
+.fa-stack
+    font-size: .5em
+
+#player
+    height: 100%
+
+    .row
+        height: 96%
+
+    .progress
+        background: $gray
+        height: 4%
+
+        .progress-time
+            bottom: 2.5%
+            right: .25em
+
+            i
+                color: $blue
+                font-style: normal
+
+    .queue
+        background: $white
+        box-shadow: 0 0 8px rgba(0, 0, 0, .75)
+        display: block
+        max-height: 20em
+        overflow-y: auto
+        top: 100%
+        right: 0
+        width: 100%
+
+        span
+            display: block
+
+            &.current
+                color: $blue
+
+    button
+        background: none
+        border: none
+        outline: none !important
+
+.list-card
+    background: $white
+    border-radius: 2px
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .75)
+    height: 100px
+    padding: 5px
+
+    header
+        top: 0
+        left: 10%
+
+    aside
+        bottom: 16%
+        left: 10%
+
+    button
+        background: none
+        border: none
+        border-radius: 50%
+        cursor: pointer
+        font-size: 1.5em
+        outline: none !important
+        bottom: 20%
+        right: 10%
+        width: 30px
+        height: 30px
