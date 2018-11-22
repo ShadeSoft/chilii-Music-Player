@@ -1,0 +1,52 @@
+<template>
+    <figure id="player" class="position-relative m-0">
+        <audio id="song">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="row half-gutters">
+            <div class="col-9 d-flex">
+                <div class="d-flex flex-grow-0">
+                    <img src="https://via.placeholder.com/64?text=cover" alt="" class="img-fluid">
+                </div>
+                <div class="d-flex align-items-center flex-grow-1">
+                    <div class="pl-2">
+                        <span class="title">{{ title }}</span><br>
+                        <span>
+                            <small class="artist">{{ artist }}</small> &ndash;
+                            <small class="album">{{ album }}</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+                <button class="play-prev"><i class="fas fa-step-backward"></i></button>
+                <button class="toggle-play"><i class="fas fa-play"></i></button>
+                <button class="play-next"><i class="fas fa-step-forward"></i></button>
+                <button class="list-queue"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <small class="position-absolute progress-time"></small>
+        </div>
+        <aside class="position-absolute p-2 queue" style="display: none;"></aside>
+    </figure>
+</template>
+
+<script>
+    module.exports = {
+        data: function() {
+            return {
+                title: '-',
+                artist: '-',
+                album: '-'
+            }
+        }
+    };
+</script>
+
+<style scoped>
+    .title {
+        color: red;
+    }
+</style>

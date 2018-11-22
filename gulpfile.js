@@ -1,11 +1,14 @@
 let gulp        = require('gulp');
 let babel       = require('gulp-babel');
+let browserify  = require('browserify');
+let buffer      = require('vinyl-buffer');
 let concat      = require('gulp-concat');
 let del         = require('del');
 let minifyCss   = require('gulp-csso');
 let postcss     = require('gulp-postcss');
 let pump        = require('pump');
 let sass        = require('gulp-dart-sass');
+let source      = require('vinyl-source-stream');
 let uglifyJs    = require('gulp-uglify');
 
 gulp.task('jsClean', function(cb) {
@@ -13,13 +16,26 @@ gulp.task('jsClean', function(cb) {
 });
 
 gulp.task('js', gulp.series('jsClean', function(cb) {
+    let b = browserify({
+        entries: 'assets/js/main.js',
+        debug: false
+    })
+    .transform('babelify', { presets: ['@babel/env'] })
+    .transform('vueify');
+
     pump([
-        gulp.src(['assets/js/**/*.js', '!assets/js/**/_*.js']),
-        babel({ presets: ['env'] }),
+        b.bundle(),
+        source('main.js'),
+        buffer(),
+        uglifyJs(),
+        gulp.dest('public/assets/js')
+    ], pump([
+        gulp.src(['assets/js/**/*.js', '!assets/js/**/_*.js', '!assets/js/main.js']),
+        babel({ presets: ['@babel/env'] }),
         concat('app.js'),
         uglifyJs(),
         gulp.dest('public/assets/js')
-    ], cb);
+    ], cb));
 }));
 
 gulp.task('jsWatch', function() {

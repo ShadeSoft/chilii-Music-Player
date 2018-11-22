@@ -13,6 +13,7 @@
     <script src="{{ asset('assets/vendor/popper.js/dist/popper.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js'|versionify) }}"></script>
+    <script src="{{ asset('assets/js/main.js'|versionify) }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -32,7 +33,8 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-5">
-                    {{ include('Component/player.html.twig') }}
+                    <div id="player"></div>
+                    {#{{ include('Component/player.html.twig') }}#}
                 </div>
             </div>
         </div>
