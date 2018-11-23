@@ -40,7 +40,7 @@
                 title: '-',
                 artist: '-',
                 album: '-'
-            }
+            };
         }
     };
 </script>
