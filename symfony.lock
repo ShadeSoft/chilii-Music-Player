@@ -62,6 +62,9 @@
     "shadesoft/twig-asset-version": {
         "version": "v1.0"
     },
+    "shadesoft/twig-glob": {
+        "version": "v1.0"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

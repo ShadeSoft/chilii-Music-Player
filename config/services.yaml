@@ -33,3 +33,8 @@ services:
         class: ShadeSoft\Twig\AssetVersionExtension
         tags:
             - { name: twig.extension }
+
+    shadesoft.twig.glob_extension:
+        class: ShadeSoft\Twig\GlobExtension
+        tags:
+            - { name: twig.extension }

@@ -10,5 +10,6 @@
 /config/settings.yaml
 /node_modules/
 /public/assets/
-!public/assets/css/
-!public/assets/js/
+!/public/assets/css/
+!/public/assets/icons/
+!/public/assets/js/

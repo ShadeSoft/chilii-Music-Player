@@ -2,6 +2,23 @@
 
 {% block title %}chilii Music Player{% endblock %}
 
+{% block icons %}
+    {% for size, icon in 'assets/icons/apple-icon-*.png'|glob %}
+        <link rel="apple-touch-icon" sizes="{{ size }}" href="{{ asset(icon) }}">
+    {% endfor %}
+
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('assets/icons/android-icon-192x192.png') }}">
+
+    {% for size, icon in 'assets/icons/favicon-*.png'|glob %}
+        <link rel="icon" type="image/png" sizes="{{ size }}" href="{{ asset(icon) }}">
+    {% endfor %}
+
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/icons/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+{% endblock %}
+
 {% block stylesheets %}
     <link href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
