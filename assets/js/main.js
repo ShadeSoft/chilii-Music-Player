@@ -15,12 +15,6 @@ $(document).ready(function() {
     let songHandler = function(sender) {
         song.pause();
 
-        $('.play-song').find('i').each(function() {
-            if($(this) !== sender) {
-                $(this).removeClass('fa-pause-circle').addClass('fa-play-circle');
-            }
-        });
-
         let current = parseInt(sender.attr('rel'));
         let queue = [];
         $('.play-song').each(function() {

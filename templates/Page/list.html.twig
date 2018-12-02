@@ -3,16 +3,24 @@
 {% block title %}{{ title ?: 'Home' }} | {{ parent() }}{% endblock %}
 
 {% block content %}
-    <div class="row half-gutters">
-        {% if path %}
-            <div class="col-2">
-                <figure class="d-flex justify-content-center list-card">
-                    {% set xPath = path|split(';') %}
-                    <a class="d-flex align-self-center" href="{{ path('list', { path: xPath|slice(0, xPath|length - 1)|join(';') }) }}"><i class="fas fa-arrow-up"></i></a>
-                </figure>
-            </div>
-        {% endif %}
+    {% if path %}
+        {% set xPath = path|split(';') %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('list') }}"><i class="fas fa-home"></i></a></li>
+                {% for i in 0 .. xPath|length - 2 if xPath|length >= 2 %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('list', { path: xPath|slice(0, i + 1)|join(';') }) }}">
+                            {{ xPath[i] }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="breadcrumb-item active" aria-current="page">{{ xPath[xPath|length - 1] }}</li>
+            </ol>
+        </nav>
+    {% endif %}
 
+    <div class="row half-gutters">
         {% for folder in folders %}
             <div class="col-2">
                 <figure class="d-flex justify-content-center list-card">
@@ -23,27 +31,31 @@
 
         {% for song in songs %}
             {% set tags = song|tags %}
-            <div class="col-2">
-                <figure class="d-flex justify-content-center list-card">
-                    <header class="position-absolute">
-                        <small>{{ tags.track_number[0] }}</small>
-                    </header>
-                    <article class="d-flex align-self-center">
-                        {{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}
-                    </article>
-                    <aside class="position-absolute">
-                        <small>{{ song.extension }}</small>
-                    </aside>
-                    <button id="play-song-{{ loop.index }}" rel="{{ loop.index }}" class="position-absolute play-song"
-                        data-src="{{ path('stream_song', { path: (path ? path ~ ';') ~ song.filename }) }}"
-                        data-type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}"
-                        data-title="{{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}"
-                        data-artist="{{ tags.artist[0] }}"
-                        data-album="{{ tags.album[0] }}"
-                        {#data-cover="{{ tags.picture[0].data }}"#}>
-                        <i class="fas fa-play-circle"></i>
-                    </button>
-                </figure>
+            <div class="col-sm-4 col-md-3 col-xl-2 mb-3">
+                <div class="card" style="background: #efefef;">
+                    <div class="card-body">
+                        <small class="badge badge-primary">{{ tags.track_number[0] }}</small>
+                        <p class="card-title text-center mt-2">
+                            {{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}
+                        </p>
+                        <div class="row">
+                            <div class="col">
+                                <small class="badge badge-secondary">{{ song.extension }}</small>
+                            </div>
+                            <div class="col text-right">
+                                <button id="play-song-{{ loop.index }}" rel="{{ loop.index }}" class="btn btn-outline-primary btn-sm play-song"
+                                    data-src="{{ path('stream_song', { path: (path ? path ~ ';') ~ song.filename }) }}"
+                                    data-type="{{ song.extension == 'mp3' ? 'audio/mpeg' : ('audio/' ~ song.extension) }}"
+                                    data-title="{{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}"
+                                    data-artist="{{ tags.artist[0] }}"
+                                    data-album="{{ tags.album[0] }}"
+                                    {#data-cover="{{ tags.picture[0].data }}"#}>
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
