@@ -6,6 +6,8 @@ $(document).ready(function() {
         });
     }).resize();
 
+    new Filter('#filter-bar', '#items', '.item-title');
+
     let song = new Player('#song', '#player');
 
     $(document).on('click', '.play-song', function() {

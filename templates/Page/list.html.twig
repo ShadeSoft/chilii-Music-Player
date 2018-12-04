@@ -2,6 +2,13 @@
 
 {% block title %}{{ title ?: 'Home' }} | {{ parent() }}{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/transliteration/lib/browser/transliteration.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/wanakana/umd/wanakana.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/kuroshiro/dist/kuroshiro.min.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     {% if path %}
         {% set xPath = path|split(';') %}
@@ -20,11 +27,13 @@
         </nav>
     {% endif %}
 
-    <div class="row half-gutters">
+    <div id="items" class="row half-gutters">
         {% for folder in folders %}
             <div class="col-2">
                 <figure class="d-flex justify-content-center list-card">
-                    <a class="d-flex align-self-center" href="{{ path('list', { path: (path ? path ~ ';') ~ folder.filename }) }}">{{ folder.filename }}</a>
+                    <a class="d-flex align-self-center" href="{{ path('list', { path: (path ? path ~ ';') ~ folder.filename }) }}">
+                        <span class="item-title">{{ folder.filename }}</span>
+                    </a>
                 </figure>
             </div>
         {% endfor %}
@@ -35,7 +44,7 @@
                 <div class="card" style="background: #efefef;">
                     <div class="card-body">
                         <small class="badge badge-primary">{{ tags.track_number[0] }}</small>
-                        <p class="card-title text-center mt-2">
+                        <p class="card-title text-center mt-2 item-title">
                             {{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}
                         </p>
                         <div class="row">

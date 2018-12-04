@@ -47,8 +47,10 @@
                         </h1>
                     {% endspaceless %}
                 </div>
-                <div class="col"></div>
-                <div class="col-5">
+                <div class="col-sm-3 offset-sm-1 d-flex align-items-center">
+                    {{ include('Component/filter-bar.html.twig') }}
+                </div>
+                <div class="col-sm-6 offset-sm-1">
                     {{ include('Component/player.html.twig') }}
                 </div>
             </div>
