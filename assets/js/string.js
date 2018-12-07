@@ -1,5 +1,3 @@
-String.prototype.toRomaji = function() {
-    const kuroshiro = new Kuroshiro();
-    var str = kuroshiro.convert(this.valueOf(), { to: "romaji" });
-    return str;
+String.prototype.unicodeToLatin = function() {
+    return transl(this.valueOf());
 }
