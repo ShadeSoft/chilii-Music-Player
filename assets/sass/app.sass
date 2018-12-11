@@ -22,6 +22,11 @@ body
         bottom: 0
         box-shadow: 0 0 8px rgba(0, 0, 0, .75)
 
+.btn
+    &, &:focus, &:hover, &:active
+        box-shadow: none !important
+        outline: none !important
+
 .half-gutters
     @include half-gutters
 
@@ -30,6 +35,9 @@ body
 
 #player
     height: 100%
+
+    .active, .on
+        color: $blue
 
     .row
         height: 96%

@@ -5,6 +5,7 @@ class Player {
         this.status = 'stopped';
         this.data = {};
         this.queue = null;
+        this.volume = 1;
         this.originalTitle = document.title;
 
         let instance = this;
@@ -47,6 +48,26 @@ class Player {
         this.player.find('.list-queue').click(function() {
             instance.listQueue();
         });
+
+        this.player.find('.toggle-shuffle').click(function() {
+            if(!$(this).hasClass('on')) {
+                instance.queue.shuffle();
+                $(this).addClass('on');
+            } else {
+                instance.queue.unshuffle();
+                $(this).removeClass('on');
+            }
+        });
+
+        this.player.find('.toggle-mute').click(function() {
+            if(!$(this).hasClass('on')) {
+                instance.audio[0].volume = 0;
+                $(this).addClass('on');
+            } else {
+                instance.audio[0].volume = instance.volume;
+                $(this).removeClass('on');
+            }
+        });
     }
 
     play(refresh = false, queue = null) {
@@ -63,9 +84,11 @@ class Player {
 
             if(this.queue) {
                 let container = this.player.find('.queue');
+                let toggle = this.player.find('.list-queue');
                 if(container.hasClass('open')) {
                     container.slideUp('fast', function() {
                         container.removeClass('open');
+                        toggle.removeClass('active');
                     });
                 }
             }
@@ -115,13 +138,17 @@ class Player {
         if(this.nextHandler) {
             this.nextHandler();
         } else if(this.queue) {
-            let song = this.queue.next();
-            this.setType(song.type)
-                .setSrc(song.src)
-                .title(song.title)
-                .artist(song.artist)
-                .album(song.album)
-                .play(true);
+            let song = this.queue.next()
+            if(song) {
+                this.setType(song.type)
+                    .setSrc(song.src)
+                    .title(song.title)
+                    .artist(song.artist)
+                    .album(song.album)
+                    .play(true);
+            } else {
+                this.stop();
+            }
         }
     }
 
@@ -163,6 +190,7 @@ class Player {
 
     listQueue() {
         let container = this.player.find('.queue');
+        let toggle = this.player.find('.list-queue');
         if(!container.hasClass('open')) {
             let queueList = this.queue.list();
             let currentIndex = this.queue.currentIndex();
@@ -175,10 +203,12 @@ class Player {
             }
             container.slideDown('fast', function() {
                 container.addClass('open');
+                toggle.addClass('active');
             });
         } else {
             container.slideUp('fast', function() {
                 container.removeClass('open');
+                toggle.removeClass('active');
             });
         }
         return this;

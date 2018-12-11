@@ -40,13 +40,13 @@
             {% set tags = song|tags %}
             <div class="col-sm-4 col-md-3 col-xl-2 mb-3">
                 <div class="card" style="background: #efefef;">
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <small class="badge badge-primary">{{ tags.track_number[0] }}</small>
                         <p class="card-title text-center mt-2 item-title">
                             {{ tags.title[0] ?: song.filename|replace({ ('.' ~ song.extension): '' }) }}
                         </p>
                         <div class="row">
-                            <div class="col">
+                            <div class="col d-flex align-items-end">
                                 <small class="badge badge-secondary">{{ song.extension }}</small>
                             </div>
                             <div class="col text-right">

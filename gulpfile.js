@@ -28,7 +28,7 @@ gulp.task('jsWatch', function() {
 
 gulp.task('css', function(cb) {
     pump([
-        gulp.src('assets/s(a|c)ss/**/*.s(a|c)ss'),
+        gulp.src('assets/sass/**/*.sass'),
         sass().on('error', sass.logError),
         postcss([require('autoprefixer')]),
         minifyCss(),
@@ -37,7 +37,7 @@ gulp.task('css', function(cb) {
 });
 
 gulp.task('cssWatch', function() {
-    gulp.watch('assets/s(a|c)ss/**/*.s(a|c)ss', gulp.series('css'));
+    gulp.watch('assets/sass/**/*.sass', gulp.series('css'));
 });
 
 gulp.task('watch', gulp.parallel('jsWatch', 'cssWatch'));
